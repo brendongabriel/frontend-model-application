@@ -1,70 +1,92 @@
-# Getting Started with Create React App
+# 📌 Frontend – Interface Web para Visualização e Treinamento de Modelos
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este repositório contém o **frontend** da aplicação, desenvolvido em **React**, responsável por exibir dashboards, tabelas, rankings de variáveis, gráficos e permitir o envio de arquivos CSV para treinamento de modelos.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 📊 Sobre os Dashboards da Plataforma
 
-### `npm start`
+A interface do frontend foi desenvolvida para transformar o resultado do modelo de relevância em **insights visuais e facilmente interpretáveis**. Como o modelo analisa dezenas de variáveis operacionais e produz métricas complexas, os dashboards têm o papel de traduzir essas informações em gráficos claros, rankings e indicadores que ajudem técnicos, analistas e gestores a tomar decisões rápidas.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Assim que um modelo é treinado, o frontend consome as APIs do backend e exibe:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 🔹 Ranking de Impacto das Variáveis
+O dashboard apresenta as variáveis que mais influenciam o resultado da produção ou desempenho da máquina.  
+As variáveis são exibidas em um **gráfico de barras horizontal (Top 10)**, permitindo identificar rapidamente os fatores de maior relevância.
 
-### `npm test`
+Para cada variável, o dashboard mostra:
+- **Importância percentual normalizada**
+- **Posição no ranking**
+- **Direção do impacto**  
+  (se aumentar a variável tende a aumentar ou reduzir o resultado previsto)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Esse ranking visual auxilia na detecção de gargalos, otimização do processo e entendimento dos fatores mais críticos da operação.
 
-### `npm run build`
+### 🔹 Indicadores de Qualidade do Modelo
+O dashboard também exibe métricas fundamentais para avaliar o desempenho do modelo, como:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **R²**
+- **MAE**
+- **RMSE**
+- **Quantidade de dados de treino e teste**
+- **Número de features consideradas**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Essas métricas garantem que o usuário interprete os resultados com base na confiabilidade do modelo gerado.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 🔹 Interface Clara e Responsiva
+Toda a interface foi construída com foco na **simplicidade e clareza**, permitindo que operadores, analistas e gestores utilizem os dashboards confortavelmente tanto no computador quanto em dispositivos móveis.
 
-### `npm run eject`
+### 🔹 Integração Completa com Backend e Modelo
+Os dashboards recebem os dados diretamente das APIs do backend, que por sua vez consultam o modelo treinado.  
+Isso garante que as visualizações estejam sempre atualizadas após cada novo treinamento, entregando **insights em tempo real** sobre o comportamento da máquina.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🚀 Tecnologias Utilizadas
+- React + Vite
+- Recharts (gráficos)
+- Fetch API (requisições HTTP)
+- Context API / Hooks
+- CSS modularizado
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 📦 Estrutura do Projeto
+```
+frontend/
+ ├── src/
+ │   ├── components/
+ │   ├── pages/
+ │   └── api/
+ ├── public/
+ └── package.json
+```
 
-## Learn More
+## 🖥️ Telas Principais
+- **Lista de Máquinas**
+- **Detalhes da Máquina**
+- **Ranking de Variáveis**
+- **Envio de Arquivo CSV p/ Treinamento**
+- **Dashboard com gráficos**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## ⚙️ Como Rodar o Projeto
+```bash
+npm install
+npm run dev
+```
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 🧩 Variáveis de Ambiente
+Crie um arquivo `.env` com:
 
-### Analyzing the Bundle Size
+```
+VITE_API_BASE_URL=http://localhost:8001
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 📄 Licença
+MIT

@@ -13,7 +13,7 @@ const RankingChart = ({ ranking }) => {
   if (!ranking || ranking.length === 0) return null;
 
   const totalImportance = ranking.reduce(
-    (sum, item) => sum + Number(item.importance || 0),
+    (sum, item) => sum + Number(item.score_final || 0),
     0
   );
 
@@ -21,10 +21,10 @@ const RankingChart = ({ ranking }) => {
     `${value.toFixed(1).toString().replace('.', ',')}%`;
 
   const top10 = [...ranking]
-    .sort((a, b) => Number(b.importance) - Number(a.importance))
+    .sort((a, b) => Number(b.score_final) - Number(a.score_final))
     .slice(0, 10)
     .map((item) => {
-      const value = Number(item.importance || 0);
+      const value = Number(item.score_final || 0);
       const percent = totalImportance ? (value / totalImportance) * 100 : 0;
       return {
         name: item.feature,
@@ -37,8 +37,7 @@ const RankingChart = ({ ranking }) => {
       <div className="machine-chart-header">
         <h3>Top 10 variáveis que mais impactam</h3>
         <span className="machine-count">
-          {top10.length} variável
-          {top10.length !== 1 && 'is'}
+          {top10.length} variável{top10.length !== 1 && 'is'}
         </span>
       </div>
 
@@ -70,19 +69,16 @@ const RankingChart = ({ ranking }) => {
                 borderRadius: 8,
                 fontSize: 12,
               }}
-              formatter={(value) => [formatPercent(value), 'Importância']}
+              formatter={(value) => [formatPercent(value), 'Impacto']}
               labelFormatter={(label) => `Variável: ${label}`}
             />
-            <Bar
-              dataKey="percent"
-              radius={[4, 4, 4, 4]}
-              fill="#22c55e"
-            />
+            <Bar dataKey="percent" radius={[4, 4, 4, 4]} fill="#22c55e" />
           </BarChart>
         </ResponsiveContainer>
       </div>
     </div>
   );
 };
+
 
 export default RankingChart;

@@ -23,3 +23,9 @@ export const getModelRanking = async (machine_id) => {
     throw error;
   }
 };
+
+export const getMachineRanking = async (machineId) => {
+  const resp = await api.get(`/ranking/${machineId}`);
+  return resp.data.ranking; // <- retorna só a lista de variáveis
+};
+

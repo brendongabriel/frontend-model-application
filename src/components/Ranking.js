@@ -9,7 +9,7 @@ const Ranking = () => {
   const handleGetRanking = async () => {
     try {
       const result = await getMachineRanking(machineId);
-      setRanking(result);
+      setRanking(result.ranking || []);
     } catch (error) {
       setMessage("Erro ao buscar o ranking");
     }

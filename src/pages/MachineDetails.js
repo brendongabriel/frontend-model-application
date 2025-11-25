@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useLocation, Link } from 'react-router-dom';
 import './MachineDetails.css';
 import RankingChart from '../components/RankingCharts';
+import InsightCards from '../components/InsightCards';
+
 
 const BASE_URL = process.env.REACT_APP_URL_BASE;
 
@@ -95,7 +97,7 @@ const MachineDetails = () => {
   }, [id, machineDetails]);
 
   const totalImportance = ranking.reduce(
-    (sum, item) => sum + Number(item.importance || 0),
+    (sum, item) => sum + Number(item.score_final || 0),
     0
   );
 
@@ -254,7 +256,7 @@ const MachineDetails = () => {
           </div>
         </div>
 
-        
+
         <div className="machine-details-column">
           <div className="machine-info-block">
             <h3>Informações da máquina</h3>
@@ -365,7 +367,7 @@ const MachineDetails = () => {
             ) : (
               (() => {
                 const rowsWithPercent = ranking.map((item, index) => {
-                  const value = Number(item.importance || 0);
+                  const value = Number(item.score_final || 0);
                   const percent = totalImportance
                     ? (value / totalImportance) * 100
                     : 0;
@@ -396,7 +398,7 @@ const MachineDetails = () => {
                         total estimado pelo modelo para esta máquina.
                       </p>
                     </div>
-
+                    <InsightCards ranking={ranking} />
                     <div className="machine-table-wrapper" style={{ marginTop: 10 }}>
                       <table className="machine-table">
                         <thead>
@@ -404,21 +406,40 @@ const MachineDetails = () => {
                             <th>#</th>
                             <th>Variável</th>
                             <th>Importância (%)</th>
+                            <th>Explicação</th>
+                            <th>Direção do impacto</th>
                           </tr>
                         </thead>
                         <tbody>
-                          {rowsWithPercent.map((row) => (
-                            <tr key={row.index}>
-                              <td>{row.index}</td>
-                              <td>{row.feature}</td>
-                              <td>
-                                {totalImportance
-                                  ? formatPercent(row.percent)
-                                  : '-'}
-                              </td>
-                            </tr>
-                          ))}
+                          {rowsWithPercent
+                            .filter(row => row.percent >= 1)
+                            .map((row) => {
+                              let explanation = "";
+
+                              if (row.shap_norm > 0.7 && row.native_norm < 0.3) {
+                                explanation = "Impacto não linear — SHAP muito alto.";
+                              } else if (row.shap_norm > 0.6 && row.native_norm > 0.6) {
+                                explanation = "Alta influência prática e estrutural.";
+                              } else if (row.native_norm > 0.6 && row.shap_norm < 0.3) {
+                                explanation = "Importância estrutural.";
+                              } else if (row.percent < 3) {
+                                explanation = "Baixa influência no modelo.";
+                              } else {
+                                explanation = "Impacto moderado no modelo.";
+                              }
+
+                              return (
+                                <tr key={row.index}>
+                                  <td>{row.index}</td>
+                                  <td>{row.feature}</td>
+                                  <td>{formatPercent(row.percent)}</td>
+                                  <td>{explanation}</td>
+                                  <td className="direction-cell">{row.direction}</td>
+                                </tr>
+                              );
+                            })}
                         </tbody>
+
                       </table>
                     </div>
                   </>
