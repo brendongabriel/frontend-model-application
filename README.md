@@ -1,53 +1,88 @@
-# 📌 Frontend – Interface Web para Visualização e Treinamento de Modelos
+# 📌 Frontend – Interface Web para Visualização e Interpretação do Modelo
 
-Este repositório contém o **frontend** da aplicação, desenvolvido em **React**, responsável por exibir dashboards, tabelas, rankings de variáveis, gráficos e permitir o envio de arquivos CSV para treinamento de modelos.
+1. [Repositório do modelo da aplicação;](https://github.com/brendongabriel/relevance-service)
+2. [Repositório do backend da aplicação;](https://github.com/brendongabriel/backend-model-application)
+
+Este repositório contém o **frontend da plataforma**, desenvolvido em **React**, responsável por exibir dashboards interativos, rankings de variáveis, gráficos explicativos e uma interface para envio de arquivos CSV para treinamento dos modelos de relevância.
+
+A aplicação traduz os resultados do modelo — que analisa dezenas de variáveis operacionais — em **insights visuais e acionáveis**, permitindo que operadores, analistas e gestores entendam rapidamente o que mais influencia a produção.
 
 ---
 
 ## 📊 Sobre os Dashboards da Plataforma
 
-A interface do frontend foi desenvolvida para transformar o resultado do modelo de relevância em **insights visuais e facilmente interpretáveis**. Como o modelo analisa dezenas de variáveis operacionais e produz métricas complexas, os dashboards têm o papel de traduzir essas informações em gráficos claros, rankings e indicadores que ajudem técnicos, analistas e gestores a tomar decisões rápidas.
+Os dashboards foram projetados para transformar os resultados técnicos do modelo (como SHAP values, importâncias nativas e métricas de regressão) em **visualizações fáceis de entender**, mesmo por usuários sem conhecimento em Machine Learning.
 
-Assim que um modelo é treinado, o frontend consome as APIs do backend e exibe:
+Assim que um modelo é treinado e salvo, o frontend consome as APIs do backend para exibir:
+
+---
 
 ### 🔹 Ranking de Impacto das Variáveis
-O dashboard apresenta as variáveis que mais influenciam o resultado da produção ou desempenho da máquina.  
-As variáveis são exibidas em um **gráfico de barras horizontal (Top 10)**, permitindo identificar rapidamente os fatores de maior relevância.
 
-Para cada variável, o dashboard mostra:
+O dashboard destaca as variáveis que mais influenciam o desempenho da máquina, exibindo:
+
+- **Gráfico de barras horizontal (Top 10)**  
 - **Importância percentual normalizada**
 - **Posição no ranking**
-- **Direção do impacto**  
-  (se aumentar a variável tende a aumentar ou reduzir o resultado previsto)
+- **Direção do impacto (Insights SHAP)**
+  - *Aumentar a variável tende a aumentar a produção*, ou  
+  - *Aumentar a variável tende a reduzir o resultado*, ou  
+  - *A relação é não linear*
 
-Esse ranking visual auxilia na detecção de gargalos, otimização do processo e entendimento dos fatores mais críticos da operação.
+Além disso, a tabela completa inclui todos os atributos relevantes (acima de 1% de importância), permitindo uma análise detalhada e precisa dos fatores que realmente impactam o processo produtivo.
+
+Essa visualização facilita decisões como:
+- detecção de gargalos,
+- otimização de parâmetros operacionais,
+- priorização de variáveis críticas.
+
+---
 
 ### 🔹 Indicadores de Qualidade do Modelo
-O dashboard também exibe métricas fundamentais para avaliar o desempenho do modelo, como:
 
-- **R²**
-- **MAE**
-- **RMSE**
+Para validar se a análise gerada é confiável, o dashboard exibe:
+
+- **R² (coeficiente de determinação)**
+- **MAE (Erro Absoluto Médio)**
+- **RMSE (Raiz do Erro Quadrático Médio)**
 - **Quantidade de dados de treino e teste**
-- **Número de features consideradas**
+- **Número total de variáveis usadas no modelo**
 
-Essas métricas garantem que o usuário interprete os resultados com base na confiabilidade do modelo gerado.
+Essas métricas permitem que o usuário interprete os insights tendo como base a performance real do modelo.
 
-### 🔹 Interface Clara e Responsiva
-Toda a interface foi construída com foco na **simplicidade e clareza**, permitindo que operadores, analistas e gestores utilizem os dashboards confortavelmente tanto no computador quanto em dispositivos móveis.
+---
+
+### 🔹 Experiência de Uso Clara e Responsiva
+
+A interface foi construída com foco na simplicidade:
+
+- Navegação intuitiva  
+- Layout responsivo  
+- Organização clara das seções  
+- Datas, percentuais e métricas formatados automaticamente
+
+Tudo isso permite que a plataforma seja utilizada tanto em computadores quanto em tablets ou celulares.
+
+---
 
 ### 🔹 Integração Completa com Backend e Modelo
-Os dashboards recebem os dados diretamente das APIs do backend, que por sua vez consultam o modelo treinado.  
-Isso garante que as visualizações estejam sempre atualizadas após cada novo treinamento, entregando **insights em tempo real** sobre o comportamento da máquina.
+
+O frontend se comunica diretamente com o backend, que por sua vez acessa o modelo treinado no serviço de Machine Learning.  
+Essa arquitetura garante:
+
+- **dados sempre atualizados após cada novo treinamento**,  
+- **insights consistentes e sincronizados**,  
+- **visualizações que refletem exatamente o que o modelo aprendeu**.
 
 ---
 
 ## 🚀 Tecnologias Utilizadas
-- React + Vite
-- Recharts (gráficos)
-- Fetch API (requisições HTTP)
-- Context API / Hooks
-- CSS modularizado
+
+- **React + Vite**
+- **Recharts** (visualização de gráficos)
+- **Fetch API** (requests HTTP)
+- **React Hooks / Context API**
+- **CSS modularizado**
 
 ---
 
@@ -85,8 +120,3 @@ Crie um arquivo `.env` com:
 ```
 VITE_API_BASE_URL=http://localhost:8001
 ```
-
----
-
-## 📄 Licença
-MIT
