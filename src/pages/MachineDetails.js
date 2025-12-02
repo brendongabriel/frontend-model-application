@@ -3,6 +3,7 @@ import { useParams, useLocation, Link } from 'react-router-dom';
 import './MachineDetails.css';
 import RankingChart from '../components/RankingCharts';
 import InsightCards from '../components/InsightCards';
+import { FiRefreshCw } from "react-icons/fi";
 
 
 const BASE_URL = process.env.REACT_APP_URL_BASE;
@@ -10,6 +11,11 @@ const BASE_URL = process.env.REACT_APP_URL_BASE;
 console.log('BASE_URL:', BASE_URL);
 
 const MachineDetails = () => {
+
+  const handleReload = () => {
+    window.location.reload();
+  };
+
   const { id } = useParams();
   const location = useLocation();
 
@@ -250,9 +256,16 @@ const MachineDetails = () => {
             >
               Treinar máquina
             </button>
-            <Link to="/" className="machine-back-link">
-              ← Voltar
-            </Link>
+            <div className="actions-group">
+              <button className="machine-reload-button" onClick={handleReload}>
+                <FiRefreshCw size={18} />
+              </button>
+
+              <Link to="/" className="machine-back-link">
+                ← Voltar
+              </Link>
+            </div>
+
           </div>
         </div>
 

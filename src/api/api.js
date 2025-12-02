@@ -24,8 +24,13 @@ export const getModelRanking = async (machine_id) => {
   }
 };
 
-export const getMachineRanking = async (machineId) => {
-  const resp = await api.get(`/ranking/${machineId}`);
-  return resp.data.ranking; // <- retorna só a lista de variáveis
-};
+
+export async function deleteMachine(id) {
+  const response = await axios.delete(`${BASE_URL}/machines/${id}`);
+  if (response.status !== 200) {
+    throw new Error("Erro ao deletar máquina");
+  }
+
+  return true;
+}
 

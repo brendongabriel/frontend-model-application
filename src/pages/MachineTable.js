@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './MachineTable.css';
+import { deleteMachine } from '../api/api';
+import { FiRefreshCw } from "react-icons/fi";
 
 const MachineTable = () => {
   const [machines, setMachines] = useState([]);
@@ -12,6 +14,10 @@ const MachineTable = () => {
   const [newMachineName, setNewMachineName] = useState('');
   const [creating, setCreating] = useState(false);
   const [createError, setCreateError] = useState(null);
+
+  const handleReload = () => {
+    window.location.reload();
+  };
 
   useEffect(() => {
     const fetchMachines = async () => {
@@ -79,15 +85,31 @@ const MachineTable = () => {
     }
   };
 
+  const handleDelete = async (id) => {
+    try {
+      await deleteMachine(id);
+      setMachines((prev) => prev.filter((m) => m.id !== id));
+    } catch (e) {
+      alert("Erro ao deletar máquina.");
+      console.error(e);
+    }
+  };
+
+
   return (
     <div className="machine-page">
       <div className="machine-card">
         <div className="machine-card-header">
           <h1>Tabela de Máquinas</h1>
           <div className="machine-card-header-right">
+            <button className="machine-add-button machine-reload-button" type="button" onClick={handleReload}>
+              <FiRefreshCw size={18} />
+            </button>
+
             <span className="machine-count">
               {machines.length} máquina{machines.length !== 1 && 's'}
             </span>
+
             <button
               type="button"
               className="machine-add-button"
@@ -104,7 +126,7 @@ const MachineTable = () => {
           <div className="machine-error">{error}</div>
         ) : machines.length === 0 ? (
           <div className="machine-empty">
-            <p>😕 Nenhuma máquina cadastrada ainda.</p>
+            <p>Nenhuma máquina cadastrada ainda.</p>
           </div>
         ) : (
           <div className="machine-table-wrapper">
@@ -140,6 +162,14 @@ const MachineTable = () => {
                       >
                         {machine.status}
                       </span>
+                    </td>
+                    <td style={{ textAlign: "center" }}>
+                      <button
+                        className="delete-btn"
+                        onClick={() => handleDelete(machine.id)}
+                      >
+                        🗑️
+                      </button>
                     </td>
                   </tr>
                 ))}

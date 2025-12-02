@@ -1,11 +1,8 @@
-/* Usa as variáveis definidas em MachineTable.css */
-
-/* Card de detalhes tem um respiro maior */
 .machine-details-card {
   padding-bottom: 22px;
 }
 
-/* Cabeçalho */
+
 .machine-details-header {
   display: flex;
   justify-content: space-between;
@@ -33,7 +30,7 @@
   gap: 8px;
 }
 
-/* Link de voltar */
+
 .machine-back-link {
   font-size: 0.85rem;
   text-decoration: none;
@@ -51,14 +48,14 @@
   transform: translateY(-1px);
 }
 
-/* Grid com bloco de info + ranking */
+
 .machine-details-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr);
   gap: 18px;
 }
 
-/* Bloco de informação */
+
 .machine-info-block {
   background: rgba(15, 23, 42, 0.9);
   border-radius: 12px;
@@ -154,7 +151,6 @@
   font-weight: 500;
 }
 
-/* Bloco de ranking */
 .machine-ranking-block {
   display: flex;
   flex-direction: column;
@@ -176,7 +172,6 @@
   color: var(--text-muted);
 }
 
-/* Estados de erro */
 .machine-error {
   background: rgba(239, 68, 68, 0.08);
   border-radius: 12px;
@@ -195,7 +190,6 @@
 }
 
 
-/* Responsivo */
 @media (max-width: 768px) {
   .machine-details-grid {
     grid-template-columns: minmax(0, 1fr);
@@ -240,7 +234,6 @@
   height: 260px;
 }
 
-/* Botão "Treinar máquina" */
 .machine-train-button {
   padding: 6px 14px;
   border-radius: 999px;
@@ -266,8 +259,6 @@
   transform: none;
   box-shadow: none;
 }
-
-/* MODAL */
 
 .machine-modal-backdrop {
   position: fixed;
@@ -399,7 +390,7 @@
 .machine-toast {
   position: fixed;
   right: 24px;
-  top: 20px;           /* 👈 agora em cima */
+  top: 20px;      
   z-index: 50;
   max-width: 360px;
   padding: 10px 14px;
@@ -411,7 +402,6 @@
   font-size: 0.9rem;
 }
 
-/* Responsivo */
 @media (max-width: 640px) {
   .machine-toast {
     left: 12px;
@@ -471,7 +461,6 @@
   cursor: default;
 }
 
-/* Texto do lado esquerdo */
 .machine-file-input-text {
   display: flex;
   flex-direction: column;
@@ -490,7 +479,6 @@
   color: var(--text-muted);
 }
 
-/* Botãozinho à direita */
 .machine-file-input-button {
   flex-shrink: 0;
   padding: 6px 10px;
@@ -551,5 +539,11 @@
   white-space: normal !important;
   word-break: break-word !important;
   overflow-wrap: break-word !important;
-  max-width: 260px; /* ajuste como quiser */
+  max-width: 260px;
+}
+
+.machine-reload-button {
+  padding: 6px;
+  min-width: 32px;
+  height: 32px;
 }
